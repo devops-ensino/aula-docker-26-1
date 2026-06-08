@@ -1,0 +1,13 @@
+{
+  "name": "docker-aula",
+  "version": "1.0.0",
+  "description": "Aplicação Node.js simples para dockerização",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Giovanni",
+  "license": "ISC",
+  "dependencies": {}
+}
+
