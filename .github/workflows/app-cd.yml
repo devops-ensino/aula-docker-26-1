@@ -27,3 +27,23 @@ jobs:
           file: ./simple-app/Dockerfile
           push: true
           tags: giovannifs/aula-docker-26-1:latest
+          
+  deploy: 
+    needs: delivery
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH to VM 
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            docker pull giovannifs/aula-docker-26-1:latest
+            docker stop aula-docker-26-1 || true
+            docker rm aula-docker-26-1 || true
+            docker run -d --name aula-docker-26-1 -p 4000:3000 giovannifs/aula-docker-26-1
+
+
