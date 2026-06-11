@@ -1,0 +1,23 @@
+name: App CD
+
+on: 
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  delivery:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and push image
+        uses: docker/build-push-action@v7
+        with:
+          context: ./simple-app
+          file: ./simple-app/Dockerfile
+          push: true
+          tags: giovannifs/aula-docker-26-1:latest
